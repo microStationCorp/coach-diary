@@ -10,7 +10,18 @@ const AddCoachDetails: NextPage = () => {
     formState: { errors },
   } = useForm<CoachData>();
 
-  const onSubmit: SubmitHandler<CoachData> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<CoachData> = (data) => {
+    console.log(data);
+    fetch("/api/addcoach", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    }).then((res) => {
+      res.json().then((d) => console.log(d));
+    });
+  };
 
   return (
     <>
@@ -32,6 +43,34 @@ const AddCoachDetails: NextPage = () => {
             <label>Coach Number:</label>
             <input {...register("coachNumber", { required: true })} />
             {errors.coachNumber && <span>Coach Number required</span>}
+          </div>
+          <div>
+            <label>Return Date:</label>
+            <input {...register("returnDate")} />
+          </div>
+          <div>
+            <label>AC Plant:</label>
+            <input {...register("acPlant")} />
+          </div>
+          <div>
+            <label>Inverter:</label>
+            <input {...register("inverter")} />
+          </div>
+          <div>
+            <label>Pump 1:</label>
+            <input {...register("pump1")} />
+          </div>
+          <div>
+            <label>Pump 2:</label>
+            <input {...register("pump2")} />
+          </div>
+          <div>
+            <label>RRU PP:</label>
+            <input {...register("rruPP")} />
+          </div>
+          <div>
+            <label>RRU NPP:</label>
+            <input {...register("rruNPP")} />
           </div>
           <div>
             <input type="submit" />

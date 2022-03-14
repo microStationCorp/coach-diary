@@ -1,7 +1,13 @@
-import type { NextPage } from "next";
+import dbConnect from "@/utils/dbConnect";
+import Coach from "model/CoachModel";
 import Head from "next/head";
 
-const CoachList: NextPage = () => {
+type dType = {
+  coachNumber: string;
+  coachType: string;
+};
+
+function CoachList({ list }: { list: dType[] }) {
   return (
     <>
       <Head>
@@ -12,9 +18,32 @@ const CoachList: NextPage = () => {
 
       <main>
         <h1>Coach List page</h1>
+        <ul>
+          {list.map((l) => (
+            <li key={l.coachNumber}>
+              {l.coachNumber}- {l.coachType}
+            </li>
+          ))}
+        </ul>
       </main>
     </>
   );
-};
+}
 
+export async function getStaticProps() {
+  await dbConnect();
+  const coachList = await Coach.find({}).select("-__V");
+  const data: dType[] = coachList.map((d) => {
+    return {
+      coachNumber: d.coachNumber,
+      coachType: d.coachType,
+    };
+  });
+
+  return {
+    props: {
+      list: data,
+    },
+  };
+}
 export default CoachList;
