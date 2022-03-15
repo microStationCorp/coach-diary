@@ -15,8 +15,13 @@ const AppBar = () => {
           </Link>
         </div>
         <div>
-          <Link href="/form/addnew" passHref>
-            <a>Coach form</a>
+          <Link href="/form/addnewcoach" passHref>
+            <a>new Coach form</a>
+          </Link>
+        </div>
+        <div>
+          <Link href="/form/report" passHref>
+            <a>Coach report form</a>
           </Link>
         </div>
       </div>

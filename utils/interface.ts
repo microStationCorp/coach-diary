@@ -1,3 +1,5 @@
+import { Key } from "react";
+
 export interface CoachData {
   coachType: string;
   coachNumber: string;
@@ -15,10 +17,14 @@ export interface CoachReportData {
 }
 
 export interface ReportData {
-  date: Date;
+  _id?: Key | null | undefined | string;
+  date?: Date;
   reportDetails: string;
-  action: string;
+  action?: string;
   escortingFitter: string;
-  maintenanceFitter: string;
+  maintenanceFitter?: string;
+}
+
+export interface ReportCoachData {
   coach: CoachData;
 }

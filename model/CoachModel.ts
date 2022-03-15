@@ -1,7 +1,7 @@
 import { CoachData, CoachReportData } from "@/utils/interface";
 import mongoose from "mongoose";
 
-interface CoachSchemaData extends CoachData, CoachReportData {}
+export interface CoachSchemaData extends CoachData, CoachReportData {}
 
 const CoachSchema = new mongoose.Schema<CoachSchemaData>({
   coachNumber: {

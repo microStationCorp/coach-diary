@@ -1,8 +1,10 @@
 import dbConnect from "@/utils/dbConnect";
 import Coach from "model/CoachModel";
 import Head from "next/head";
+import Link from "next/link";
 
 type dType = {
+  _id: string;
   coachNumber: string;
   coachType: string;
 };
@@ -20,8 +22,12 @@ function CoachList({ list }: { list: dType[] }) {
         <h1>Coach List page</h1>
         <ul>
           {list.map((l) => (
-            <li key={l.coachNumber}>
-              {l.coachNumber}- {l.coachType}
+            <li key={l._id}>
+              <Link href={`/coachlist/${l._id}`} passHref>
+                <a>
+                  {l.coachNumber}- {l.coachType}
+                </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -30,11 +36,12 @@ function CoachList({ list }: { list: dType[] }) {
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   await dbConnect();
   const coachList = await Coach.find({}).select("-__V");
   const data: dType[] = coachList.map((d) => {
     return {
+      _id: d._id.toString(),
       coachNumber: d.coachNumber,
       coachType: d.coachType,
     };
