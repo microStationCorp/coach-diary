@@ -88,7 +88,7 @@ function CoachReportForm({ coachlist }: { coachlist: chlist[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  dbConnect();
+  await dbConnect();
   const result = await Coach.find({}).select("coachType coachNumber");
   return {
     props: {

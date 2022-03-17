@@ -7,7 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  dbConnect();
+  await dbConnect();
   const method = req.method;
   const reportdata: {
     _id: string;

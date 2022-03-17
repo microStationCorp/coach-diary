@@ -8,7 +8,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  dbConnect();
+  await dbConnect();
   const data: CoachData = req.body;
   const method = req.method;
   switch (method) {

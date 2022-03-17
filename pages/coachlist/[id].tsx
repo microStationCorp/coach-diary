@@ -64,7 +64,7 @@ function CoachReport({ searchedCoach }: { searchedCoach: CoachSchemaData }) {
 export const getServerSideProps: GetServerSideProps = async (context: {
   params?: { id: string } | ParsedUrlQuery | undefined;
 }) => {
-  dbConnect();
+  await dbConnect();
   const id = context.params?.id;
   const searchedCoach = await Coach.findOne({ _id: id })
     .select("-__v")
