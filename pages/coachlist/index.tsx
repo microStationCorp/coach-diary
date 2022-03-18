@@ -1,6 +1,5 @@
 import dbConnect from "@/utils/dbConnect";
 import Coach from "model/CoachModel";
-import Report from "model/reportModel";
 import Head from "next/head";
 import Link from "next/link";
 

@@ -3,10 +3,10 @@ import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
 import dbConnect from "utils/dbConnect";
 import Coach from "model/CoachModel";
-import { CoachSchemaData } from "model/CoachModel";
+import { ICoachSchemaData } from "model/CoachModel";
 import Link from "next/link";
 
-function CoachReport({ searchedCoach }: { searchedCoach: CoachSchemaData }) {
+function CoachReport({ searchedCoach }: { searchedCoach: ICoachSchemaData }) {
   return (
     <>
       <Head>
@@ -45,11 +45,11 @@ function CoachReport({ searchedCoach }: { searchedCoach: CoachSchemaData }) {
           <span>RRU NPP side : {searchedCoach.rruNPP}</span>
         </div>
         <h2>report :</h2>
-        {searchedCoach.coachReport.length == 0 ? (
+        {searchedCoach.coachReport?.length == 0 ? (
           <span>no report</span>
         ) : (
           <ol>
-            {searchedCoach.coachReport.map((rep) => (
+            {searchedCoach.coachReport?.map((rep) => (
               <li key={rep._id}>
                 <div>date : {rep.date}</div>
                 <div>report details : {rep.reportDetails}</div>

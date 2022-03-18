@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { CoachData } from "@/utils/interface";
 import type { NextApiRequest, NextApiResponse } from "next";
-import Coach from "model/CoachModel";
+import Coach, { ICoachSchemaData } from "model/CoachModel";
 import dbConnect from "utils/dbConnect";
 
 export default async function handler(
@@ -9,7 +8,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   await dbConnect();
-  const data: CoachData = req.body;
+  const data: ICoachSchemaData = req.body;
   const method = req.method;
   switch (method) {
     case "POST":

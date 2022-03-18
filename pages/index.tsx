@@ -1,3 +1,4 @@
+import CoachModel from "@/model/CoachModel";
 import reportModel from "@/model/reportModel";
 import dbConnect from "@/utils/dbConnect";
 import Head from "next/head";
@@ -51,6 +52,7 @@ function Home({
 
 export async function getServerSideProps() {
   await dbConnect();
+  await CoachModel.find();
   const reportList = await reportModel
     .find({})
     .populate("coach")

@@ -2,9 +2,9 @@ import { CoachData, CoachReportData } from "@/utils/interface";
 import reportModel from "model/reportModel";
 import mongoose from "mongoose";
 
-export interface CoachSchemaData extends CoachData, CoachReportData {}
+export interface ICoachSchemaData extends CoachData, CoachReportData, mongoose.Document {}
 
-const CoachSchema = new mongoose.Schema<CoachSchemaData>({
+const CoachSchema: mongoose.Schema = new mongoose.Schema({
   coachNumber: {
     type: String,
     required: true,
@@ -21,7 +21,8 @@ const CoachSchema = new mongoose.Schema<CoachSchemaData>({
   pump2: String,
   rruPP: String,
   rruNPP: String,
-  coachReport: [{ type: mongoose.Schema.Types.ObjectId, ref: reportModel }],
+  coachReport: [{ type: mongoose.Schema.Types.ObjectId, ref: "Report" }],
 });
 
-export default mongoose.models.Coach || mongoose.model("Coach", CoachSchema);
+export default mongoose.models.Coach ||
+  mongoose.model<ICoachSchemaData>("Coach", CoachSchema);
