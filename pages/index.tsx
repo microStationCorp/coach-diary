@@ -1,3 +1,6 @@
+import CoachModel from "@/model/CoachModel";
+import reportModel from "@/model/reportModel";
+import dbConnect from "@/utils/dbConnect";
 import type { NextPage } from "next";
 import Head from "next/head";
 
@@ -16,5 +19,13 @@ const Home: NextPage = () => {
     </>
   );
 };
+
+export async function getServerSideProps() {
+  await dbConnect();
+  const coachList = await CoachModel.find({}).populate("coachReport");
+  return {
+    props: {},
+  };
+}
 
 export default Home;
