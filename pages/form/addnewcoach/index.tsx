@@ -1,14 +1,22 @@
 import { CoachData } from "@/utils/interface";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 const AddCoachDetails: NextPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitSuccessful },
   } = useForm<CoachData>();
+
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({ coachType: "", coachNumber: "", returnDate: "" });
+    }
+  }, [reset, isSubmitSuccessful]);
 
   const onSubmit: SubmitHandler<CoachData> = (data) => {
     console.log(data);

@@ -14,13 +14,13 @@ export default async function handler(
   switch (method) {
     case "POST":
       {
-        // try {
-        const newCoach = new Coach(data);
-        const doc = await newCoach.save();
-        res.status(200).json({ success: true, doc });
-        // } catch (error) {
-        //   res.status(500).json({ success: false, error });
-        // }
+        try {
+          const newCoach = new Coach(data);
+          const doc = await newCoach.save();
+          res.status(200).json({ success: true, doc });
+        } catch (error) {
+          res.status(500).json({ success: false, error });
+        }
       }
       break;
     default: {

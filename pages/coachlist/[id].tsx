@@ -66,6 +66,7 @@ export const getServerSideProps: GetServerSideProps = async (context: {
 }) => {
   await dbConnect();
   const id = context.params?.id;
+  console.log(id);
   const searchedCoach = await Coach.findOne({ _id: id })
     .select("-__v")
     .populate("coachReport");

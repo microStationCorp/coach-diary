@@ -1,5 +1,6 @@
 import dbConnect from "@/utils/dbConnect";
 import Coach from "model/CoachModel";
+import Report from "model/reportModel";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -38,7 +39,7 @@ function CoachList({ list }: { list: dType[] }) {
 
 export async function getServerSideProps() {
   await dbConnect();
-  const coachList = await Coach.find({}).select("-__V");
+  const coachList = await Coach.find({}).select("-__V")
   const data: dType[] = coachList.map((d) => {
     return {
       _id: d._id.toString(),
