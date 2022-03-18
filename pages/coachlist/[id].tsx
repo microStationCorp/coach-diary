@@ -4,6 +4,7 @@ import { ParsedUrlQuery } from "querystring";
 import dbConnect from "utils/dbConnect";
 import Coach from "model/CoachModel";
 import { CoachSchemaData } from "model/CoachModel";
+import Link from "next/link";
 
 function CoachReport({ searchedCoach }: { searchedCoach: CoachSchemaData }) {
   return (
@@ -53,6 +54,11 @@ function CoachReport({ searchedCoach }: { searchedCoach: CoachSchemaData }) {
                 <div>date : {rep.date}</div>
                 <div>report details : {rep.reportDetails}</div>
                 <div>escorting fitter : {rep.escortingFitter}</div>
+                <div>
+                  <Link href={`/form/updatereport/${rep._id}`} passHref>
+                    <a>update report</a>
+                  </Link>
+                </div>
               </li>
             ))}
           </ol>

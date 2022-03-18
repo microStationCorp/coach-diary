@@ -29,6 +29,10 @@ function CoachList({ list }: { list: dType[] }) {
                   {l.coachNumber}- {l.coachType}
                 </a>
               </Link>
+              -
+              <Link href={`/form/updatecoach/${l._id}`} passHref>
+                <a>update coach details</a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -39,7 +43,7 @@ function CoachList({ list }: { list: dType[] }) {
 
 export async function getServerSideProps() {
   await dbConnect();
-  const coachList = await Coach.find({}).select("-__V")
+  const coachList = await Coach.find({}).select("-__V");
   const data: dType[] = coachList.map((d) => {
     return {
       _id: d._id.toString(),

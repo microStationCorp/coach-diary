@@ -1,10 +1,19 @@
-import CoachModel from "@/model/CoachModel";
 import reportModel from "@/model/reportModel";
 import dbConnect from "@/utils/dbConnect";
-import type { NextPage } from "next";
 import Head from "next/head";
 
-const Home: NextPage = () => {
+function Home({
+  data,
+}: {
+  data: {
+    _id: string;
+    reportDetails: string;
+    escortingFitter: string;
+    coachNumber: string;
+    coachType: string;
+    date: string;
+  }[];
+}) {
   return (
     <>
       <Head>
@@ -15,16 +24,51 @@ const Home: NextPage = () => {
 
       <main>
         <h1>home page</h1>
+        <ol>
+          {data.map((d) => (
+            <li key={d._id}>
+              <div>
+                <h4>
+                  {d.coachNumber}-{d.coachType}
+                </h4>
+              </div>
+              <div>
+                <span>report : {d.reportDetails}</span>
+              </div>
+              <div>
+                <span>escorting fittrt : {d.escortingFitter}</span>
+              </div>
+              <div>
+                <span>date : {d.date}</span>
+              </div>
+            </li>
+          ))}
+        </ol>
       </main>
     </>
   );
-};
+}
 
 export async function getServerSideProps() {
   await dbConnect();
-  const coachList = await CoachModel.find({}).populate("coachReport");
+  const reportList = await reportModel
+    .find({})
+    .populate("coach")
+    .sort({ date: -1 });
+
+  const data = reportList.map((rl) => {
+    return {
+      _id: rl._id,
+      reportDetails: rl.reportDetails,
+      escortingFitter: rl.escortingFitter,
+      coachNumber: rl.coach.coachNumber,
+      coachType: rl.coach.coachType,
+      date: rl.date,
+    };
+  });
+
   return {
-    props: {},
+    props: { data: JSON.parse(JSON.stringify(data)) },
   };
 }
 
