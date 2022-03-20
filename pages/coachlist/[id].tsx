@@ -5,6 +5,7 @@ import dbConnect from "utils/dbConnect";
 import Coach from "model/CoachModel";
 import { ICoachSchemaData } from "model/CoachModel";
 import Link from "next/link";
+import { Labels } from "@/utils/labels";
 
 function CoachReport({ searchedCoach }: { searchedCoach: ICoachSchemaData }) {
   return (
@@ -18,31 +19,17 @@ function CoachReport({ searchedCoach }: { searchedCoach: ICoachSchemaData }) {
       <main>
         <h1>coach {searchedCoach.coachNumber} data</h1>
         <div>
-          <span>coach type : {searchedCoach.coachType}</span>
+          {Object.entries(Labels).map(([key, value]) => (
+            <div key={key}>
+              {/*  @ts-expect-error: */}
+              {value}:{searchedCoach[key]}
+            </div>
+          ))}
         </div>
         <div>
-          <span>coach number : {searchedCoach.coachNumber}</span>
-        </div>
-        <div>
-          <span> return date : {searchedCoach.returnDate}</span>
-        </div>
-        <div>
-          <span>AC plant : {searchedCoach.acPlant}</span>
-        </div>
-        <div>
-          <span>inverter : {searchedCoach.inverter}</span>
-        </div>
-        <div>
-          <span>pump 1 : {searchedCoach.pump1}</span>
-        </div>
-        <div>
-          <span>pump 2 : {searchedCoach.pump2}</span>
-        </div>
-        <div>
-          <span>RRU PP side : {searchedCoach.rruPP}</span>
-        </div>
-        <div>
-          <span>RRU NPP side : {searchedCoach.rruNPP}</span>
+          <Link href={`/form/updatecoach/${searchedCoach._id}`} passHref>
+            <a>update coach data</a>
+          </Link>
         </div>
         <h2>report :</h2>
         {searchedCoach.coachReport?.length == 0 ? (
@@ -72,7 +59,6 @@ export const getServerSideProps: GetServerSideProps = async (context: {
 }) => {
   await dbConnect();
   const id = context.params?.id;
-  console.log(id);
   const searchedCoach = await Coach.findOne({ _id: id })
     .select("-__v")
     .populate("coachReport");

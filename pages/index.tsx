@@ -37,7 +37,7 @@ function Home({
                 <span>report : {d.reportDetails}</span>
               </div>
               <div>
-                <span>escorting fittrt : {d.escortingFitter}</span>
+                <span>escorting fiter : {d.escortingFitter}</span>
               </div>
               <div>
                 <span>date : {d.date}</span>
