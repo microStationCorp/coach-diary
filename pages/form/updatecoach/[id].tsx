@@ -1,6 +1,34 @@
+import CoachModel, { ICoachSchemaData } from "@/model/CoachModel";
+import dbConnect from "@/utils/dbConnect";
+import { CoachData } from "@/utils/interface";
+import { Labels } from "@/utils/labels";
 import Head from "next/head";
+import { GetServerSideProps } from "next/types";
+import { ParsedUrlQuery } from "querystring";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-const UpdateCoach = () => {
+const UpdateCoach = ({
+  searchedCoach,
+}: {
+  searchedCoach: ICoachSchemaData;
+}) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<CoachData>();
+  const onSubmit: SubmitHandler<CoachData> = (data) => {
+    fetch("/api/updatecoach", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...data, _id: searchedCoach._id }),
+    }).then((res) => {
+      res.json().then((d) => console.log(d));
+    });
+  };
   return (
     <>
       <Head>
@@ -10,10 +38,58 @@ const UpdateCoach = () => {
       </Head>
 
       <main>
-        <h1>coach data Update</h1>
+        <h1>
+          update {searchedCoach.coachNumber}({searchedCoach.coachType}) coach
+          data{" "}
+        </h1>
+        <div>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            {Object.entries(Labels).map(([key, value]) => {
+              if (key !== "coachType" && key !== "coachNumber")
+                return (
+                  <div key={key}>
+                    {value}:
+                    <input
+                      // @ts-ignore
+                      defaultValue={searchedCoach[key]}
+                      // @ts-ignore
+                      {...register(key)}
+                    />
+                  </div>
+                );
+            })}
+            <div>
+              <input type="submit" />
+            </div>
+          </form>
+        </div>
       </main>
     </>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context: {
+  params?: { id: string } | ParsedUrlQuery | undefined;
+}) => {
+  await dbConnect();
+  const coach_id = context.params?.id;
+  try {
+    const searchedCoach = await CoachModel.findById(coach_id).select(
+      "-coachReport"
+    );
+    return {
+      props: {
+        searchedCoach: JSON.parse(JSON.stringify(searchedCoach)),
+      },
+    };
+  } catch (error) {
+    return {
+      props: {},
+      redirect: {
+        destination: "/404",
+      },
+    };
+  }
 };
 
 export default UpdateCoach;

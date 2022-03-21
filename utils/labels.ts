@@ -2,7 +2,7 @@ import { CoachData } from "./interface";
 
 export const Labels: CoachData = {
   coachNumber: "Coach Number",
-  coachType: " COach Type",
+  coachType: " Coach Type",
   returnDate: "Return Date",
   acPlant: "AC Plant",
   inverter: "Inverter",
