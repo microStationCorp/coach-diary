@@ -13,6 +13,8 @@ function Home({
     coachNumber: string;
     coachType: string;
     date: string;
+    maintenanceFitter: string;
+    action: string;
   }[];
 }) {
   return (
@@ -39,6 +41,10 @@ function Home({
               <div>
                 <span>escorting fiter : {d.escortingFitter}</span>
               </div>
+              {d.action ? <div>Action : {d.action}</div> : null}
+              {d.maintenanceFitter ? (
+                <div>Maintenance Fitter:{d.maintenanceFitter}</div>
+              ) : null}{" "}
               <div>
                 <span>date : {d.date}</span>
               </div>
@@ -66,6 +72,8 @@ export async function getServerSideProps() {
       coachNumber: rl.coach.coachNumber,
       coachType: rl.coach.coachType,
       date: rl.date,
+      action: rl.action,
+      maintenanceFitter: rl.maintenanceFitter,
     };
   });
 
