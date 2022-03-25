@@ -1,10 +1,32 @@
-import reportModel from "@/model/reportModel";
+import reportModel, { IReportSchemaData } from "@/model/reportModel";
 import dbConnect from "@/utils/dbConnect";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { ParsedUrlQuery } from "querystring";
+import { reportLabel } from "utils/labels";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { ReportData } from "@/utils/interface";
 
-function UpdateReport() {
+function UpdateReport({ coach_report }: { coach_report: IReportSchemaData }) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitSuccessful },
+  } = useForm<ReportData>();
+
+  const onSubmit: SubmitHandler<ReportData> = (data) => {
+    fetch("/api/updatereport", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...data, report_id: coach_report._id }),
+    }).then((res) => {
+      res.json().then((d) => console.log(d));
+    });
+  };
+
   return (
     <>
       <Head>
@@ -14,7 +36,25 @@ function UpdateReport() {
       </Head>
 
       <main>
-        <h1>coach report Update</h1>
+        <h1>
+          {coach_report.coach.coachNumber}({coach_report.coach.coachType})
+          report Update
+        </h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            {Object.entries(reportLabel).map(([key, value]) => {
+              return (
+                <div key={key}>
+                  {value} : {/* @ts-ignore */}
+                  <input {...register(key)} defaultValue={coach_report[key]} />
+                </div>
+              );
+            })}
+          </div>
+          <div>
+            <input type="submit" />
+          </div>
+        </form>
       </main>
     </>
   );
@@ -24,12 +64,24 @@ export const getServerSideProps: GetServerSideProps = async (context: {
   params?: { id: string } | ParsedUrlQuery | undefined;
 }) => {
   await dbConnect();
-  const id = context.params?.id;
-  console.log(id);
-  const coach_report = await reportModel.findById(id);
-  return {
-    props: {},
-  };
+  const report_id = context.params?.id;
+  try {
+    const coach_report = await reportModel
+      .findById(report_id)
+      .populate("coach", "_id coachNumber coachType");
+    return {
+      props: {
+        coach_report: JSON.parse(JSON.stringify(coach_report)),
+      },
+    };
+  } catch (error) {
+    return {
+      props: {},
+      redirect: {
+        destination: "/404",
+      },
+    };
+  }
 };
 
 export default UpdateReport;

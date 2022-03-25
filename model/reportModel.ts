@@ -1,7 +1,9 @@
 import { ReportCoachData, ReportData } from "@/utils/interface";
 import mongoose from "mongoose";
 
-export interface IReportSchemaData extends ReportData, ReportCoachData {}
+export interface IReportSchemaData extends ReportData, ReportCoachData {
+    [x: string]: any;
+}
 
 const ReportSchema: mongoose.Schema = new mongoose.Schema({
   date: {

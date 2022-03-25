@@ -1,4 +1,4 @@
-import { CoachData } from "./interface";
+import { CoachData, ReportData } from "./interface";
 
 export const Labels: CoachData = {
   coachNumber: "Coach Number",
@@ -10,4 +10,11 @@ export const Labels: CoachData = {
   pump2: "Pump 2",
   rruPP: "RRU of PP side",
   rruNPP: "RRU of NPP side",
+};
+
+export const reportLabel: ReportData = {
+  reportDetails: "Report Details",
+  escortingFitter: "Escorting Fitter",
+  action: "Action Taken",
+  maintenanceFitter: "Maintenance Fitter",
 };

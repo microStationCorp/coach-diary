@@ -41,6 +41,10 @@ function CoachReport({ searchedCoach }: { searchedCoach: ICoachSchemaData }) {
                 <div>date : {rep.date}</div>
                 <div>report details : {rep.reportDetails}</div>
                 <div>escorting fitter : {rep.escortingFitter}</div>
+                {rep.action ? <div>Action : {rep.action}</div> : null}
+                {rep.maintenanceFitter ? (
+                  <div>Maintenance Fitter:{rep.maintenanceFitter}</div>
+                ) : null}
                 <div>
                   <Link href={`/form/updatereport/${rep._id}`} passHref>
                     <a>update report</a>
