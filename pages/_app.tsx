@@ -3,6 +3,7 @@ import Loader from "component/loader";
 import type { AppProps } from "next/app";
 import Router from "next/router";
 import { useState } from "react";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);

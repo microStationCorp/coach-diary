@@ -26,7 +26,9 @@ function Home({
       </Head>
 
       <main>
-        <h1>home page</h1>
+        <div className="text-3xl font-mono">
+          Timeline
+        </div>
         <ol>
           {data.map((d) => (
             <li key={d._id}>
