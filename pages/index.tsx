@@ -1,6 +1,7 @@
 import CoachModel from "@/model/CoachModel";
 import reportModel from "@/model/reportModel";
 import dbConnect from "@/utils/dbConnect";
+import { DataKeyValue } from "component/DataKeyValueComp";
 import Head from "next/head";
 
 function Home({
@@ -25,30 +26,42 @@ function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <div className="text-3xl font-mono">
+      <main className="container mx-auto bg-slate-300">
+        <div className="text-3xl font-mono pl-3 pt-2 text-center underline decoration-wavy">
           Timeline
         </div>
-        <ol>
+        <ol className="px-4 flex flex-col lg:flex-row lg:flex-wrap">
           {data.map((d) => (
-            <li key={d._id}>
-              <div>
-                <h4>
-                  {d.coachNumber}-{d.coachType}
-                </h4>
+            <li key={d._id} className="m-3 bg-white shadow-md rounded-lg p-5">
+              <div className="text-center text-lg font-medium tracking-wide">
+                <span className="lining-nums">{d.coachNumber}</span>
+                <span className="uppercase">-{d.coachType}</span>
               </div>
-              <div>
-                <span>report : {d.reportDetails}</span>
-              </div>
-              <div>
-                <span>escorting fiter : {d.escortingFitter}</span>
-              </div>
-              {d.action ? <div>Action : {d.action}</div> : null}
+              <DataKeyValue
+                dkey="report"
+                dvalue={d.reportDetails}
+                dtextcolor="text-red-600"
+              />
+              <DataKeyValue
+                dkey="escorting fitter"
+                dvalue={d.escortingFitter}
+              />
+              {d.action ? (
+                <DataKeyValue
+                  dkey="action"
+                  dvalue={d.action}
+                  dtextcolor="text-lime-600"
+                />
+              ) : null}
               {d.maintenanceFitter ? (
-                <div>Maintenance Fitter:{d.maintenanceFitter}</div>
+                <DataKeyValue
+                  dkey="maintenance Fitter"
+                  dvalue={d.maintenanceFitter}
+                />
               ) : null}{" "}
               <div>
-                <span>date : {d.date}</span>
+                <span className="font-semibold">date :</span>
+                <span> {d.date}</span>
               </div>
             </li>
           ))}
@@ -57,6 +70,8 @@ function Home({
     </>
   );
 }
+
+
 
 export async function getServerSideProps() {
   await dbConnect();

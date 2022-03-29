@@ -1,7 +1,7 @@
 const Footer = () => {
   return (
     <>
-      <div>copyright to microStationCorp</div>
+      <div className="text-center text-sm my-2 text-slate-700">copyright to microStationCorp</div>
     </>
   );
 };

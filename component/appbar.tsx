@@ -22,9 +22,12 @@ const links: { name: string; url: string }[] = [
 const AppBar = () => {
   return (
     <>
-      <div className="flex bg-slate-500 text-white">
+      <div className="flex bg-slate-500 sticky top-0">
         {links.map((link) => (
-          <div key={link.url} className="mx-3 my-3 text-xl font-mono capitalize hover:text-slate-300">
+          <div
+            key={link.url}
+            className="mx-3 my-3 text-base font-mono capitalize hover:text-slate-300 text-white hover:font-semibold"
+          >
             <Link href={link.url} passHref>
               <a>{link.name}</a>
             </Link>
