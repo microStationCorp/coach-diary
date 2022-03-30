@@ -26,13 +26,13 @@ function Home({
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="container mx-auto bg-slate-300">
-        <div className="text-3xl font-mono pl-3 pt-2 text-center underline decoration-wavy">
+      <main className="container mx-auto">
+        <div className="text-3xl font-mono my-3 text-center underline decoration-wavy">
           Timeline
         </div>
         <ol className="px-4 flex flex-col lg:flex-row lg:flex-wrap">
           {data.map((d) => (
-            <li key={d._id} className="m-3 bg-white shadow-md rounded-lg p-5">
+            <li key={d._id} className="m-3 bg-cyan-100 shadow-md rounded-lg p-5">
               <div className="text-center text-lg font-medium tracking-wide">
                 <span className="lining-nums">{d.coachNumber}</span>
                 <span className="uppercase">-{d.coachType}</span>

@@ -52,7 +52,10 @@ function UpdateReport({ coach_report }: { coach_report: IReportSchemaData }) {
             })}
           </div>
           <div>
-            <input type="submit" />
+            <input
+              className="py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600"
+              type="submit"
+            />
           </div>
         </form>
       </main>
