@@ -4,6 +4,7 @@ import dbConnect from "utils/dbConnect";
 import Coach from "model/CoachModel";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ReportData } from "@/utils/interface";
+import { CustomButton } from "component/CustomButton";
 
 interface chlist {
   _id: string;
@@ -109,17 +110,6 @@ function CoachReportForm({ coachlist }: { coachlist: chlist[] }) {
     </>
   );
 }
-
-export const CustomButton = () => {
-  return (
-    <button
-      type="submit"
-      className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 focus:outline-none dark:focus:ring-blue-800 shadow-md"
-    >
-      Submit
-    </button>
-  );
-};
 
 export const getServerSideProps: GetServerSideProps = async () => {
   await dbConnect();

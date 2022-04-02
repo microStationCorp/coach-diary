@@ -1,4 +1,5 @@
 import { CoachData } from "@/utils/interface";
+import { CustomButton } from "component/CustomButton";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect } from "react";
@@ -39,49 +40,91 @@ const AddCoachDetails: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>Add Coach details Form page</h1>
+      <main className="container mx-auto flex items-center flex-col">
+        <div className="capitalize text-3xl font-mono my-3 text-center underline decoration-wavy">
+          coach details form
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label>Coach Type:</label>
-            <input {...register("coachType", { required: true })} />
-            {errors.coachType && <span> Coach Type required</span>}
-          </div>
-          <div>
-            <label>Coach Number:</label>
-            <input {...register("coachNumber", { required: true })} />
-            {errors.coachNumber && <span>Coach Number required</span>}
-          </div>
-          <div>
-            <label>Return Date:</label>
-            <input {...register("returnDate")} />
-          </div>
-          <div>
-            <label>AC Plant:</label>
-            <input {...register("acPlant")} />
-          </div>
-          <div>
-            <label>Inverter:</label>
-            <input {...register("inverter")} />
-          </div>
-          <div>
-            <label>Pump 1:</label>
-            <input {...register("pump1")} />
-          </div>
-          <div>
-            <label>Pump 2:</label>
-            <input {...register("pump2")} />
-          </div>
-          <div>
-            <label>RRU PP:</label>
-            <input {...register("rruPP")} />
-          </div>
-          <div>
-            <label>RRU NPP:</label>
-            <input {...register("rruNPP")} />
-          </div>
-          <div>
-            <input type="submit" />
+          <div className="flex flex-col items-center mt-5 gap-6 bg-cyan-100 p-5 rounded-lg shadow-md">
+            <div className="flex flex-col gap-3">
+              <div className="flex flex-col items-baseline">
+                <label>Coach Type:</label>
+                <input
+                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("coachType", { required: true })}
+                />
+                {errors.coachType && <span> Coach Type required</span>}
+              </div>
+              <div>
+                <label>Coach Number:</label>
+                <input
+                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("coachNumber", { required: true })}
+                />
+                {errors.coachNumber && <span>Coach Number required</span>}
+              </div>
+              <div>
+                <label>Return Date:</label>
+                <input
+                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("returnDate")}
+                />
+              </div>
+              <div>
+                <label>AC Plant:</label>
+                <input
+                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("acPlant")}
+                />
+              </div>
+              <div>
+                <label>Inverter:</label>
+                <input
+                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("inverter")}
+                />
+              </div>
+              <div>
+                <label>Pump 1:</label>
+                <input
+                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("pump1")}
+                />
+              </div>
+              <div>
+                <label>Pump 2:</label>
+                <input
+                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("pump2")}
+                />
+              </div>
+              <div>
+                <label>RRU PP:</label>
+                <input
+                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("rruPP")}
+                />
+              </div>
+              <div>
+                <label>RRU NPP:</label>
+                <input
+                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("rruNPP")}
+                />
+              </div>
+            </div>
+            <div>
+              <CustomButton />
+            </div>
           </div>
         </form>
       </main>
