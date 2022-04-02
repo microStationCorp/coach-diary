@@ -36,56 +36,90 @@ function CoachReportForm({ coachlist }: { coachlist: chlist[] }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>coach report form</h1>
+      <main className="container mx-auto flex items-center flex-col">
+        <div className="capitalize text-3xl font-mono my-3 text-center underline decoration-wavy">
+          coach report form
+        </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <label htmlFor="coach">Choose a coach:</label>
-            <select
-              {...register("_id", {
-                validate: (value) => {
-                  if (value === "") {
-                    return false;
-                  } else {
-                    return true;
-                  }
-                },
-              })}
-              id="coach"
-            >
-              <option value={""}>--select coach--</option>
-              {coachlist.map((cl) => (
-                <option value={cl._id} key={cl._id}>
-                  {cl.coachNumber}-{cl.coachType}
-                </option>
-              ))}
-            </select>
-            {errors._id && <span>select coach</span>}
-          </div>
-          <div>
-            <label>Report Details :</label>
-            <input
-              type="text"
-              {...register("reportDetails", { required: true })}
-            />
-            {errors.reportDetails && <span>report details requires</span>}
-          </div>
-          <div>
-            <label>Escorting Fitter :</label>
-            <input
-              type="text"
-              {...register("escortingFitter", { required: true })}
-            />
-            {errors.escortingFitter && <span>report details requires</span>}
-          </div>
-          <div>
-            <input type="submit" />
+          <div className="flex flex-col items-center mt-5 gap-6 bg-cyan-100 p-5 rounded-lg shadow-md">
+            <div className="flex flex-col items-baseline gap-3">
+              <div>
+                <label htmlFor="coach">Choose a coach:</label>
+                <select
+                  className="form-select appearance-none px-3 py-1 ml-2 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  {...register("_id", {
+                    validate: (value) => {
+                      if (value === "") {
+                        return false;
+                      } else {
+                        return true;
+                      }
+                    },
+                  })}
+                  id="coach"
+                >
+                  <option value={""}>--select coach--</option>
+                  {coachlist.map((cl) => (
+                    <option value={cl._id} key={cl._id}>
+                      {cl.coachNumber}-{cl.coachType}
+                    </option>
+                  ))}
+                </select>
+                {errors._id && <span>select coach</span>}
+              </div>
+              <div>
+                <label className="">Report Details :</label>
+                <textarea
+                  rows={4}
+                  className="form-control w-full
+                  px-3
+                  py-1
+                  ml-2
+                  text-base
+                  font-normal
+                  text-gray-700
+                  bg-white bg-clip-padding
+                  border border-solid border-gray-300
+                  rounded
+                  transition
+                  ease-in-out
+                  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                "
+                  {...register("reportDetails", { required: true })}
+                />
+                {errors.reportDetails && <span>report details requires</span>}
+              </div>
+              <div>
+                <label>Escorting Fitter :</label>
+                <input
+                  type="text"
+                  className="form-control ml-2 px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
+                  {...register("escortingFitter", { required: true })}
+                />
+                {errors.escortingFitter && <span>report details requires</span>}
+              </div>
+            </div>
+            <div>
+              <CustomButton />
+            </div>
           </div>
         </form>
       </main>
     </>
   );
 }
+
+export const CustomButton = () => {
+  return (
+    <button
+      type="submit"
+      className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 focus:outline-none dark:focus:ring-blue-800 shadow-md"
+    >
+      Submit
+    </button>
+  );
+};
 
 export const getServerSideProps: GetServerSideProps = async () => {
   await dbConnect();
