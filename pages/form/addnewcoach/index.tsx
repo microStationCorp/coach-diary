@@ -41,7 +41,7 @@ const AddCoachDetails: NextPage = () => {
       </Head>
 
       <main className="container mx-auto flex items-center flex-col">
-        <div className="capitalize text-3xl font-mono my-3 text-center underline decoration-wavy">
+        <div className="capitalize text-2xl font-mono my-3 text-center underline decoration-wavy">
           coach details form
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>

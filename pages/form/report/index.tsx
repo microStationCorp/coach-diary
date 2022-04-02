@@ -38,7 +38,7 @@ function CoachReportForm({ coachlist }: { coachlist: chlist[] }) {
       </Head>
 
       <main className="container mx-auto flex items-center flex-col">
-        <div className="capitalize text-3xl font-mono my-3 text-center underline decoration-wavy">
+        <div className="capitalize text-2xl font-mono my-3 text-center underline decoration-wavy">
           coach report form
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>

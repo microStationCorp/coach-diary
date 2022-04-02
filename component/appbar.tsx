@@ -26,7 +26,7 @@ const AppBar = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <nav className="sticky top-0 shadow-sm w-full z-10">
+      <nav className="sticky top-0 bg-slate-200 shadow-sm w-full z-10">
         <div className="w-full">
           <div className="flex items-center h-20 w-full">
             {/* for first block. Title */}

@@ -1,8 +1,16 @@
 import CoachModel from "@/model/CoachModel";
 import reportModel from "@/model/reportModel";
+import { getFullDateFormat } from "@/utils/dateMaker";
 import dbConnect from "@/utils/dbConnect";
 import { DataKeyValue } from "component/DataKeyValueComp";
 import Head from "next/head";
+
+// var options = {
+//   weekday: "long",
+//   year: "numeric",
+//   month: "long",
+//   day: "numeric",
+// };
 
 function Home({
   data,
@@ -27,13 +35,16 @@ function Home({
       </Head>
 
       <main className="container mx-auto">
-        <div className="text-3xl font-mono my-3 text-center underline decoration-wavy">
+        <div className="text-2xl font-mono my-3 text-center underline decoration-wavy">
           Timeline
         </div>
         <ol className="px-4 flex flex-col lg:flex-row lg:flex-wrap">
           {data.map((d) => (
-            <li key={d._id} className="m-3 bg-cyan-100 shadow-md rounded-lg p-5">
-              <div className="text-center text-lg font-medium tracking-wide">
+            <li
+              key={d._id}
+              className="m-3 bg-cyan-100 shadow-md rounded-lg p-5"
+            >
+              <div className="text-center text-lg font-medium tracking-wide mb-2">
                 <span className="lining-nums">{d.coachNumber}</span>
                 <span className="uppercase">-{d.coachType}</span>
               </div>
@@ -59,9 +70,9 @@ function Home({
                   dvalue={d.maintenanceFitter}
                 />
               ) : null}{" "}
-              <div>
-                <span className="font-semibold">date :</span>
-                <span> {d.date}</span>
+              <div className="text-xs mt-2 text-slate-500 font-semibold">
+                <span className="capitalize">date :</span>
+                <span> {getFullDateFormat(d.date)}</span>
               </div>
             </li>
           ))}
@@ -70,8 +81,6 @@ function Home({
     </>
   );
 }
-
-
 
 export async function getServerSideProps() {
   await dbConnect();

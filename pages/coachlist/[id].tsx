@@ -16,44 +16,53 @@ function CoachReport({ searchedCoach }: { searchedCoach: ICoachSchemaData }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>coach {searchedCoach.coachNumber} data</h1>
-        <div>
-          {Object.entries(Labels).map(([key, value]) => (
-            <div key={key}>
-              {/*  @ts-expect-error: */}
-              {value}:{searchedCoach[key]}
-            </div>
-          ))}
+      <main className="container mx-auto">
+        <div className="text-2xl font-mono my-3 text-center capitalize">
+          coach {searchedCoach.coachNumber}(
+          <span className="text-cyan-700">{searchedCoach.coachType}</span>) data
         </div>
         <div>
-          <Link href={`/form/updatecoach/${searchedCoach._id}`} passHref>
-            <a>update coach data</a>
-          </Link>
-        </div>
-        <h2>report :</h2>
-        {searchedCoach.coachReport?.length == 0 ? (
-          <span>no report</span>
-        ) : (
-          <ol>
-            {searchedCoach.coachReport?.map((rep) => (
-              <li key={rep._id}>
-                <div>date : {rep.date}</div>
-                <div>report details : {rep.reportDetails}</div>
-                <div>escorting fitter : {rep.escortingFitter}</div>
-                {rep.action ? <div>Action : {rep.action}</div> : null}
-                {rep.maintenanceFitter ? (
-                  <div>Maintenance Fitter:{rep.maintenanceFitter}</div>
-                ) : null}
-                <div>
-                  <Link href={`/form/updatereport/${rep._id}`} passHref>
-                    <a>update report</a>
-                  </Link>
-                </div>
-              </li>
+          <div>
+            {Object.entries(Labels).map(([key, value]) => (
+              <div key={key}>
+                {/*  @ts-expect-error: */}
+                {value}:{searchedCoach[key]}
+              </div>
             ))}
-          </ol>
-        )}
+          </div>
+          <div className="my-3">
+            <Link href={`/form/updatecoach/${searchedCoach._id}`} passHref>
+              <a className="capitalize cursor-pointer text-blue-400 text-sm font-semibold border-solid border rounded-md border-sky-500 p-2">
+                update coach data
+              </a>
+            </Link>
+          </div>
+        </div>
+        <div>
+          <div className="capitalize text-xl">report :</div>
+          {searchedCoach.coachReport?.length == 0 ? (
+            <span>no report</span>
+          ) : (
+            <ol>
+              {searchedCoach.coachReport?.map((rep) => (
+                <li key={rep._id}>
+                  <div>date : {rep.date}</div>
+                  <div>report details : {rep.reportDetails}</div>
+                  <div>escorting fitter : {rep.escortingFitter}</div>
+                  {rep.action ? <div>Action : {rep.action}</div> : null}
+                  {rep.maintenanceFitter ? (
+                    <div>Maintenance Fitter:{rep.maintenanceFitter}</div>
+                  ) : null}
+                  <div>
+                    <Link href={`/form/updatereport/${rep._id}`} passHref>
+                      <a>update report</a>
+                    </Link>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          )}
+        </div>
       </main>
     </>
   );
