@@ -17,4 +17,5 @@ export const reportLabel: ReportData = {
   escortingFitter: "Escorting Fitter",
   action: "Action Taken",
   maintenanceFitter: "Maintenance Fitter",
+  date: "Date",
 };

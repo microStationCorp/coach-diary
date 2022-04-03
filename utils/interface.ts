@@ -18,7 +18,7 @@ export interface CoachReportData {
 
 export interface ReportData {
   _id?: Key | null | undefined | string;
-  date: Date;
+  date: Date | string;
   reportDetails: string;
   action?: string;
   escortingFitter: string;
