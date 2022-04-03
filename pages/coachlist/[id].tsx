@@ -6,6 +6,8 @@ import Coach from "model/CoachModel";
 import { ICoachSchemaData } from "model/CoachModel";
 import Link from "next/link";
 import { Labels } from "@/utils/labels";
+import { DataKeyValue } from "component/DataKeyValueComp";
+import { getFullDateFormat } from "@/utils/dateMaker";
 
 function CoachReport({ searchedCoach }: { searchedCoach: ICoachSchemaData }) {
   return (
@@ -18,49 +20,86 @@ function CoachReport({ searchedCoach }: { searchedCoach: ICoachSchemaData }) {
 
       <main className="container mx-auto">
         <div className="text-2xl font-mono my-3 text-center capitalize">
-          coach {searchedCoach.coachNumber}(
-          <span className="text-cyan-700">{searchedCoach.coachType}</span>) data
+          coach - {searchedCoach.coachNumber}(
+          <span className="text-cyan-700">{searchedCoach.coachType}</span>)
         </div>
-        <div>
-          <div>
+        {/* coach data block */}
+        <div className="bg-slate-200 p-2 mb-3 rounded-md pl-4 shadow-md">
+          <div className=" mb-2 capitalize text-xl font-semibold underline">
+            coach data
+          </div>
+          <div className="ml-2 mb-4">
             {Object.entries(Labels).map(([key, value]) => (
-              <div key={key}>
-                {/*  @ts-expect-error: */}
-                {value}:{searchedCoach[key]}
-              </div>
+              <DataKeyValue
+                key={key}
+                dkey={value}
+                /*  @ts-expect-error: */
+                dvalue={searchedCoach[key]}
+              />
             ))}
           </div>
-          <div className="my-3">
+          <div className="my-2">
             <Link href={`/form/updatecoach/${searchedCoach._id}`} passHref>
-              <a className="capitalize cursor-pointer text-blue-400 text-sm font-semibold border-solid border rounded-md border-sky-500 p-2">
+              <a className="capitalize cursor-pointer text-blue-400 hover:text-white text-sm font-semibold bg-white hover:bg-blue-400 border border-cyan-400 hover:border-none rounded-md my-2 p-2 hover:shadow-md">
                 update coach data
               </a>
             </Link>
           </div>
         </div>
-        <div>
-          <div className="capitalize text-xl">report :</div>
+        {/* report block */}
+        <div className="p-2 mb-3 rounded-md pl-4 md:shadow-md shadow-none">
+          <div className="mb-2 capitalize text-xl font-semibold underline">
+            report :
+          </div>
+
           {searchedCoach.coachReport?.length == 0 ? (
-            <span>no report</span>
+            <div className="m-3 font-semibold bg-cyan-100 shadow-md rounded-lg p-5 capitalize text-center">
+              --- no report ---
+            </div>
           ) : (
-            <ol>
+            <div className="px-4 flex flex-col lg:flex-row lg:flex-wrap">
               {searchedCoach.coachReport?.map((rep) => (
-                <li key={rep._id}>
-                  <div>date : {rep.date}</div>
-                  <div>report details : {rep.reportDetails}</div>
-                  <div>escorting fitter : {rep.escortingFitter}</div>
-                  {rep.action ? <div>Action : {rep.action}</div> : null}
-                  {rep.maintenanceFitter ? (
-                    <div>Maintenance Fitter:{rep.maintenanceFitter}</div>
+                <div
+                  key={rep._id}
+                  className="m-3 bg-cyan-100 shadow-md rounded-lg p-5"
+                >
+                  <DataKeyValue
+                    dkey="report"
+                    dvalue={rep.reportDetails}
+                    dtextcolor="text-red-600"
+                  />
+                  <DataKeyValue
+                    dkey="escorting fitter"
+                    dvalue={rep.escortingFitter}
+                  />
+                  {rep.action ? (
+                    <DataKeyValue
+                      dkey="action"
+                      dvalue={rep.action}
+                      dtextcolor="text-lime-600"
+                    />
                   ) : null}
-                  <div>
+                  {rep.maintenanceFitter ? (
+                    <DataKeyValue
+                      dkey="maintenance Fitter"
+                      dvalue={rep.maintenanceFitter}
+                    />
+                  ) : null}
+                  <div className="text-xs mt-2 text-slate-500 font-semibold">
+                    {" "}
+                    <span className="capitalize">date</span> :{" "}
+                    {getFullDateFormat(rep.date.toString())}
+                  </div>
+                  <div className="mt-2">
                     <Link href={`/form/updatereport/${rep._id}`} passHref>
-                      <a>update report</a>
+                      <a className="text-blue-500 cursor-pointer hover:underline">
+                        update report
+                      </a>
                     </Link>
                   </div>
-                </li>
+                </div>
               ))}
-            </ol>
+            </div>
           )}
         </div>
       </main>

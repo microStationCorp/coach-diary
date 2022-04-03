@@ -5,6 +5,9 @@ import Head from "next/head";
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
+const InputClass =
+  "form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none";
+
 const AddCoachDetails: NextPage = () => {
   const {
     register,
@@ -50,8 +53,7 @@ const AddCoachDetails: NextPage = () => {
               <div className="flex flex-col items-baseline">
                 <label>Coach Type:</label>
                 <input
-                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
+                  className={InputClass}
                   {...register("coachType", { required: true })}
                 />
                 {errors.coachType && <span> Coach Type required</span>}
@@ -59,67 +61,38 @@ const AddCoachDetails: NextPage = () => {
               <div>
                 <label>Coach Number:</label>
                 <input
-                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
+                  className={InputClass}
                   {...register("coachNumber", { required: true })}
                 />
                 {errors.coachNumber && <span>Coach Number required</span>}
               </div>
               <div>
                 <label>Return Date:</label>
-                <input
-                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                  {...register("returnDate")}
-                />
+                <input className={InputClass} {...register("returnDate")} />
               </div>
               <div>
                 <label>AC Plant:</label>
-                <input
-                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                  {...register("acPlant")}
-                />
+                <input className={InputClass} {...register("acPlant")} />
               </div>
               <div>
                 <label>Inverter:</label>
-                <input
-                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                  {...register("inverter")}
-                />
+                <input className={InputClass} {...register("inverter")} />
               </div>
               <div>
                 <label>Pump 1:</label>
-                <input
-                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                  {...register("pump1")}
-                />
+                <input className={InputClass} {...register("pump1")} />
               </div>
               <div>
                 <label>Pump 2:</label>
-                <input
-                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                  {...register("pump2")}
-                />
+                <input className={InputClass} {...register("pump2")} />
               </div>
               <div>
                 <label>RRU PP:</label>
-                <input
-                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                  {...register("rruPP")}
-                />
+                <input className={InputClass} {...register("rruPP")} />
               </div>
               <div>
                 <label>RRU NPP:</label>
-                <input
-                  className="form-control w-full px-3 py-1 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                  {...register("rruNPP")}
-                />
+                <input className={InputClass} {...register("rruNPP")} />
               </div>
             </div>
             <div>
