@@ -34,6 +34,7 @@ export default async function handler(
         } catch (error) {
           res.status(500).json({ success: false, error });
         }
+        // res.status(200).json({ success: true });
       }
       break;
     default: {

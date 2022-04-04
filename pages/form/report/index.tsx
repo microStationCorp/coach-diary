@@ -5,6 +5,9 @@ import Coach from "model/CoachModel";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ReportData } from "@/utils/interface";
 import { CustomButton } from "component/CustomButton";
+import { useState } from "react";
+import Loader from "component/loader";
+import { ErrorText } from "component/ErrorText";
 
 interface chlist {
   _id: string;
@@ -16,18 +19,29 @@ function CoachReportForm({ coachlist }: { coachlist: chlist[] }) {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<ReportData>();
 
+  const [loading, setLoading] = useState(false);
+
   const onSubmit: SubmitHandler<ReportData> = (data) => {
+    setLoading(true);
     fetch("/api/addreport", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     }).then((res) => {
-      res.json().then((d) => console.log(d));
+      res.json().then((d) => {
+        setLoading(false);
+        reset();
+      });
     });
   };
+
+  if (loading) {
+    return <Loader type="spinningBubbles" color="black" />;
+  }
 
   return (
     <>
@@ -66,7 +80,7 @@ function CoachReportForm({ coachlist }: { coachlist: chlist[] }) {
                     </option>
                   ))}
                 </select>
-                {errors._id && <span>select coach</span>}
+                {errors._id && <ErrorText text="* select coach" />}
               </div>
               <div>
                 <label className="">Report Details :</label>
@@ -88,7 +102,9 @@ function CoachReportForm({ coachlist }: { coachlist: chlist[] }) {
                 "
                   {...register("reportDetails", { required: true })}
                 />
-                {errors.reportDetails && <span>report details requires</span>}
+                {errors.reportDetails && (
+                  <ErrorText text="* report details requires" />
+                )}
               </div>
               <div>
                 <label>Escorting Fitter :</label>
@@ -98,7 +114,9 @@ function CoachReportForm({ coachlist }: { coachlist: chlist[] }) {
                   "
                   {...register("escortingFitter", { required: true })}
                 />
-                {errors.escortingFitter && <span>report details requires</span>}
+                {errors.escortingFitter && (
+                  <ErrorText text="* escorting fitter name required" />
+                )}
               </div>
             </div>
             <div>

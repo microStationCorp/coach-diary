@@ -1,8 +1,10 @@
 import { CoachData } from "@/utils/interface";
 import { CustomButton } from "component/CustomButton";
+import { ErrorText } from "component/ErrorText";
+import Loader from "component/loader";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 const InputClass =
@@ -15,15 +17,10 @@ const AddCoachDetails: NextPage = () => {
     reset,
     formState: { errors, isSubmitSuccessful },
   } = useForm<CoachData>();
-
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset({ coachType: "", coachNumber: "", returnDate: "" });
-    }
-  }, [reset, isSubmitSuccessful]);
+  const [loading, setLoading] = useState(false);
 
   const onSubmit: SubmitHandler<CoachData> = (data) => {
-    console.log(data);
+    setLoading(true);
     fetch("/api/addcoach", {
       method: "POST",
       headers: {
@@ -31,9 +28,16 @@ const AddCoachDetails: NextPage = () => {
       },
       body: JSON.stringify(data),
     }).then((res) => {
-      res.json().then((d) => console.log(d));
+      res.json().then((d) => {
+        setLoading(false);
+        reset();
+      });
     });
   };
+
+  if (loading) {
+    return <Loader type="spinningBubbles" color="black" />;
+  }
 
   return (
     <>
@@ -56,7 +60,7 @@ const AddCoachDetails: NextPage = () => {
                   className={InputClass}
                   {...register("coachType", { required: true })}
                 />
-                {errors.coachType && <span> Coach Type required</span>}
+                {errors.coachType && <ErrorText text="* Coach Type required" />}
               </div>
               <div>
                 <label>Coach Number:</label>
@@ -64,7 +68,9 @@ const AddCoachDetails: NextPage = () => {
                   className={InputClass}
                   {...register("coachNumber", { required: true })}
                 />
-                {errors.coachNumber && <span>Coach Number required</span>}
+                {errors.coachNumber && (
+                  <ErrorText text="* Coach Number required" />
+                )}
               </div>
               <div>
                 <label>Return Date:</label>

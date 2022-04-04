@@ -113,7 +113,7 @@ export const getServerSideProps: GetServerSideProps = async (context: {
   const id = context.params?.id;
   const searchedCoach = await Coach.findOne({ _id: id })
     .select("-__v")
-    .populate("coachReport");
+    .populate({ path: "coachReport", options: { sort: { date: -1 } } });
   return {
     props: {
       searchedCoach: JSON.parse(JSON.stringify(searchedCoach)),
