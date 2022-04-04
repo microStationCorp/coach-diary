@@ -38,7 +38,8 @@ function Home({
         <div className="text-2xl font-mono my-3 text-center underline decoration-wavy">
           Timeline
         </div>
-        <ol className="px-4 flex flex-col lg:flex-row lg:flex-wrap justify-around">
+        <ol className="px-4 flex flex-col lg:flex-none lg:grid lg:grid-cols-3 lg:gap-2">
+        {/* <ol className="px-4 flex flex-col lg:flex-row lg:flex-wrap"> */}
           {data.map((d) => (
             <li
               key={d._id}

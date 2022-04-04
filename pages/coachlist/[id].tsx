@@ -57,7 +57,7 @@ function CoachReport({ searchedCoach }: { searchedCoach: ICoachSchemaData }) {
               --- no report ---
             </div>
           ) : (
-            <div className="px-4 flex flex-col lg:flex-row lg:flex-wrap">
+            <div className="px-4 flex flex-col lg:grid lg:grid-cols-4 lg:gap-4">
               {searchedCoach.coachReport?.map((rep) => (
                 <div
                   key={rep._id}
