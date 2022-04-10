@@ -18,19 +18,39 @@ function CoachList({ list }: { list: dType[] }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>Coach List page</h1>
-        <ul>
+      <main className="container mx-auto flex items-center flex-col">
+        {/* heading */}
+        <div className=" capitalize text-2xl font-mono my-3 text-center underline decoration-wavy">
+          Coach List page
+        </div>
+        {/* list body */}
+        <ul className="list-none flex flex-col mt-5 bg-gray-100 rounded-md divide-y divide-gray-400 divide-opacity-40">
           {list.map((l) => (
-            <li key={l._id}>
+            <li
+              key={l._id}
+              className="px-4 py-3 hover:bg-gray-300 hover:cursor-pointer flex justify-between items-center w-60 hover:font-semibold hover:shadow-md"
+            >
+              <div>
+                {l.coachNumber}-{" "}
+                <span className="uppercase">{l.coachType}</span>
+              </div>
               <Link href={`/coachlist/${l._id}`} passHref>
-                <a>
-                  {l.coachNumber}- {l.coachType}
+                <a className="hover:text-blue-600">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
                 </a>
-              </Link>
-              -
-              <Link href={`/form/updatecoach/${l._id}`} passHref>
-                <a>update coach details</a>
               </Link>
             </li>
           ))}

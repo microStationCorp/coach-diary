@@ -5,13 +5,6 @@ import dbConnect from "@/utils/dbConnect";
 import { DataKeyValue } from "component/DataKeyValueComp";
 import Head from "next/head";
 
-// var options = {
-//   weekday: "long",
-//   year: "numeric",
-//   month: "long",
-//   day: "numeric",
-// };
-
 function Home({
   data,
 }: {
@@ -39,7 +32,6 @@ function Home({
           Timeline
         </div>
         <ol className="px-4 flex flex-col lg:flex-none lg:grid lg:grid-cols-3 lg:gap-2">
-        {/* <ol className="px-4 flex flex-col lg:flex-row lg:flex-wrap"> */}
           {data.map((d) => (
             <li
               key={d._id}
