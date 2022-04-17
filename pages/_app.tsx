@@ -5,6 +5,7 @@ import Router from "next/router";
 import { useState } from "react";
 import "../styles/globals.css";
 import Head from "next/head";
+import TestMode from "component/testMode";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(false);
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <TestMode/>
       <Layout>
         <Component {...pageProps} />
       </Layout>
